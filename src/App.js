@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Announcement from './Announcement/Announcement'
+import ResetButton from './ResetButton/ResetButton'
+import Tile from './Tile/Tile'
+
+class App extends Component {
+	state = {
+		gameBoard: [
+			' ', ' ', ' ',
+			' ', ' ', ' ',
+			' ', ' ', ' '
+		],
+		turn: 'x',
+	}
+
+	updateBoard(loc, player) {
+
+	}
+	render() {
+		return ( 
+			<div className="container">
+				<div className="menu">
+					<h1>Tic-Tac-Toe</h1>
+					<Announcement />
+					<ResetButton />
+				</div>
+				{this.state.gameBoard.map(function(value, i) {
+					return (
+						<Tile 
+							key={i}
+							loc={i}
+							value={value}
+							updateBoard={this.updateBoard.bind(this)}
+							turn={this.state.turn} />
+					)}.bind(this))}
+			</div>
+		);
+	}
 }
 
 export default App;
